@@ -62,7 +62,7 @@ export default new Vuex.Store({
           { id: 2, name: "Head of sales", key: "head_of_sales" },
           { id: 3, name: "Chief manager", key: "chief_manager" },
           { id: 4, name: "Second line manager", key: "second_line_manager" },
-          { id: 5, name: "First line manager", key: "first_line_manager"},
+          { id: 5, name: "First line manager", key: "first_line_manager" },
           { id: 6, name: "Partner manager", key: "partner_manager" }
         ],
         title: "Roles filter",
@@ -74,7 +74,7 @@ export default new Vuex.Store({
           { id: 1, name: "Fired", key: "fired" }
         ],
         title: "Status filter",
-        option_name: "status",
+        option_name: "status"
       },
       { customize: "time", title: "Date filter", time_from: "", time_to: "" }
     ]

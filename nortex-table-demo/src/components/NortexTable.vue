@@ -182,7 +182,10 @@ export default {
   name: "NortexTable",
   components: { TablePagination, TableColumn, TableFilter, DatetimeFilter },
   props: {
-    columns: Array,
+    columns: {
+      type: Array,
+      default: () => []
+    },
     columns_row: {
       type: Number,
       default: 1
@@ -311,9 +314,8 @@ export default {
       });
     },
     allColumns() {
-      let data = [],
-        columns = JSON.stringify(JSON.parse(this.columns));
-      columns.map(item => {
+      let data = [];
+      this.columns.map(item => {
         if (item.children && item.children.length > 0) {
           item.children.map(elem => {
             data.push(elem);
@@ -329,10 +331,11 @@ export default {
       return data;
     },
     DateTimeFilter() {
-      let datetimeFilter = this.filters.filter(filter => {
+      let datetimeFilter = this.filters.find(filter => {
         return filter.customize === "time";
       });
-      return datetimeFilter.length > 0 ? datetimeFilter[0] : false;
+      datetimeFilter = datetimeFilter ? datetimeFilter[0] : false;
+      return datetimeFilter;
     }
   },
   methods: {
