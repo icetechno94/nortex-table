@@ -84,8 +84,9 @@ export default {
   computed: {
     mainColumns() {
       let that = this,
-        data = [];
-      this.columns.map(column => {
+        data = [],
+        columns = JSON.stringify(JSON.parse(this.columns));
+      columns.map(column => {
         column["rowspan"] =
           column.children && column.children.length === 0
             ? that.columns_row
@@ -94,17 +95,18 @@ export default {
           column.children && column.children.length > 0
             ? column.children.length
             : null;
-        column["class"] = [
-          { "text-center": column.children && column.children.length > 0 },
-          that.sortingClass(column)
-        ];
+        column["class"] = {
+          "text-center": column.children && column.children.length > 0,
+          ...that.sortingClass(column)
+        };
         data.push(column);
       });
       return data;
     },
     childrenColumns() {
-      let data = [];
-      this.columns.map(column => {
+      let data = [],
+        columns = JSON.stringify(JSON.parse(this.columns));
+      columns.map(column => {
         if (column.children && column.children.length > 0) {
           column.children.map(child_column => {
             data.push(child_column);

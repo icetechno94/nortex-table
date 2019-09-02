@@ -311,8 +311,9 @@ export default {
       });
     },
     allColumns() {
-      let data = [];
-      this.columns.map(item => {
+      let data = [],
+        columns = JSON.stringify(JSON.parse(this.columns));
+      columns.map(item => {
         if (item.children && item.children.length > 0) {
           item.children.map(elem => {
             data.push(elem);
@@ -516,7 +517,8 @@ export default {
     transition: opacity 0.2s;
   }
 
-  .fade-enter, .fade-leave-to {
+  .fade-enter,
+  .fade-leave-to {
     opacity: 0;
   }
 }
