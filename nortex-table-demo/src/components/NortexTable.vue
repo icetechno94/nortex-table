@@ -4,7 +4,10 @@
       <slot name="card-header"></slot>
       <div class="card-body">
         <div class="d-flex justify-content-md-end align-items-start">
-          <label class="mr-2 flex-grow-1 table-per-page d-md-inline-flex flex-column" v-if="enable_pagination">
+          <label
+            class="mr-2 flex-grow-1 table-per-page d-md-inline-flex flex-column"
+            v-if="enable_pagination"
+          >
             <span class="text-left">{{ perPageLabels.per_page }} </span>
             <select
               name="perPageSelect"
@@ -26,7 +29,10 @@
             </select>
           </label>
           <div class="d-md-inline-flex">
-            <label class="order-sm-last table-search align-self-start" v-if="this.enable_search">
+            <label
+              class="order-sm-last table-search align-self-start"
+              v-if="this.enable_search"
+            >
               <span class="float-left">{{ searchLabel }}</span>
               <input
                 type="search"
@@ -455,60 +461,63 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.table-per-page select {
-  width: 65px;
-}
-.table-search input {
-  min-width: 200px;
-}
-.multiselect__single {
-  margin: 4px 0;
-}
-.multiselect__tag {
-  margin-bottom: 0;
-  margin-top: 3px;
-}
-.multiselect__content-wrapper {
-  min-width: max-content;
-}
-select,
-input,
-.multiselect__tags {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  min-height: 45px !important;
-}
-.sorting {
-  position: relative;
-  padding-right: 30px !important;
-  cursor: pointer;
-  &:before,
-  &:after {
-    position: absolute;
-    bottom: 0.9em;
-    display: block;
-    opacity: 0.3;
+<style lang="scss">
+.nortex-table {
+  .table-per-page select {
+    width: 65px;
   }
-  &:before {
-    right: 1em;
-    content: "\2191";
+  .table-search input {
+    min-width: 200px;
   }
-  &:after {
-    right: 0.5em;
-    content: "\2193";
+  .multiselect__single {
+    margin: 4px 0;
   }
-  &.asc:before,
-  &.desc:after {
-    opacity: 1;
+  .multiselect__tag {
+    margin-bottom: 0;
+    margin-top: 3px;
   }
-}
+  .multiselect__content-wrapper {
+    min-width: max-content;
+  }
+  select,
+  input,
+  .multiselect__tags {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    min-height: 45px !important;
+  }
+  .sorting {
+    position: relative;
+    padding-right: 30px !important;
+    cursor: pointer;
+    &:before,
+    &:after {
+      position: absolute;
+      bottom: 0.9em;
+      display: block;
+      opacity: 0.3;
+    }
+    &:before {
+      right: 1em;
+      content: "\2191";
+    }
+    &:after {
+      right: 0.5em;
+      content: "\2193";
+    }
+    &.asc:before,
+    &.desc:after {
+      opacity: 1;
+    }
+  }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-  opacity: 0;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.2s;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 }
 </style>
