@@ -1,5 +1,5 @@
 /*!
- * nortex-table v1.0.1
+ * nortex-table v1.0.3
  * (c) Petrenko Konstantin
  * Released under the MIT License.
  */

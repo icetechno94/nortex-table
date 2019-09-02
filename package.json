@@ -1,12 +1,11 @@
 {
   "private": false,
   "name": "nortex-table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Vue component for table",
   "main": "./dist/index.js",
   "scripts": {
-    "dev": "vue serve NiceHandsomeButton.vue",
-    "build": "bili --name index --plugin vue --vue.css false"
+    "build": "bili"
   },
   "files": [
     "dist/*"
