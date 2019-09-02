@@ -1,0 +1,27 @@
+{
+  "name": "nortex-table",
+  "version": "1.0.0",
+  "description": "Vue component for tables",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/icetechno94/nortex-table.git"
+  },
+  "author": "Petrenko Konstantin",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/icetechno94/nortex-table#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "v-tooltip": "^2.0.2",
+    "vue-ctk-date-time-picker": "^2.1.1",
+    "vue-multiselect": "^2.1.6"
+  },
+  "devDependencies": {
+    "bootstrap": "^4.3.1"
+  }
+}
