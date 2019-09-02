@@ -455,7 +455,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .table-per-page select {
   width: 65px;
 }
