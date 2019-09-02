@@ -1,0 +1,26 @@
+{
+  "private": false,
+  "name": "nortex-table",
+  "version": "1.0.1",
+  "description": "Vue component for table",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "vue serve NiceHandsomeButton.vue",
+    "build": "bili --name index --plugin vue --vue.css false"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/icetechno94/nortex-table.git"
+  },
+  "author": "Petrenko Konstantin",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/icetechno94/nortex-table#readme",
+  "devDependencies": {
+    "bili": "^4.8.1",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

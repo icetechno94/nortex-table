@@ -168,10 +168,10 @@
 </template>
 
 <script>
-import TableColumn from "./TableColumn";
-import TablePagination from "./TablePagination";
-import TableFilter from "./TableFilter";
-import DatetimeFilter from "./DatetimeFilter";
+import TableColumn from "./TableColumn.vue";
+import TablePagination from "./TablePagination.vue";
+import TableFilter from "./TableFilter.vue";
+import DatetimeFilter from "./DatetimeFilter.vue";
 export default {
   name: "NortexTable",
   components: { TablePagination, TableColumn, TableFilter, DatetimeFilter },
