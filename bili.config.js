@@ -4,6 +4,7 @@ module.exports = {
         extractCSS: true,
     },
     plugins: {
-        vue: true
+        vue: true,
+        commonjs: true
     }
 };
