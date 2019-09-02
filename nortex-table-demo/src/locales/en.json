@@ -1,0 +1,29 @@
+{
+  "table": {
+    "search": "Search",
+    "next": "Next",
+    "first": "First",
+    "last": "Last",
+    "prev": "Previous",
+    "per_page": "Show",
+    "all": "All",
+    "empty": "No matching records found",
+    "of": "of",
+    "loading": "Loading..."
+  },
+  "date_filters": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "seven_days": "7 days",
+    "this_week": "This week",
+    "last_week": "Last week",
+    "this_month": "This month",
+    "last_month": "Last month"
+  },
+  "action": {
+    "filter": {
+      "select": "Select"
+    }
+  },
+  "select_date_range": "Select range"
+}
