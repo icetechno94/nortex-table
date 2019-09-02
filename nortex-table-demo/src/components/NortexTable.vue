@@ -252,7 +252,7 @@ export default {
     },
     ajax_table: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data() {
