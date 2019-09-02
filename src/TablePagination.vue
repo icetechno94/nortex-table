@@ -2,71 +2,47 @@
     <div class="d-flex justify-content-between align-items-center mt-2">
         <div>{{ infoText }}</div>
         <ul class="pagination">
-            <li class="page-item"
-                :class="{ disabled: prevIsDisabled }"
-            >
-                <a href="#" class="page-link"
-                   @click.prevent="firstPage"
-                   v-tooltip="labels.first"
-                >
-                    <<<
+            <li class="page-item" :class="{ disabled: prevIsDisabled }">
+                <a href="#" class="page-link" @click.prevent="firstPage" v-tooltip="labels.first">
+                    {{"<<<"}}
                 </a>
             </li>
-            <li class="page-item"
-                :class="{ disabled: prevIsDisabled }"
-            >
-                <a href="#" class="page-link"
-                   @click.prevent="previousPage"
-                   v-tooltip="labels.prev"
-                >
-                    <
+            <li class="page-item" :class="{ disabled: prevIsDisabled }">
+                <a href="#" class="page-link" @click.prevent="previousPage" v-tooltip="labels.prev">
+                    {{"<"}}
                 </a>
             </li>
             <li class="page-item" v-for="page in prevPages" :key="page">
-                <a href="#" class="page-link"
-                   @click.prevent="changePage(page)"
-                >
+                <a href="#" class="page-link" @click.prevent="changePage(page)">
                     {{ page }}
                 </a>
             </li>
             <li class="page-item active">
-                <a href="#" class="page-link"
-                   @click.prevent=""
-                >
+                <a href="#" class="page-link" @click.prevent="">
                     {{ currentPage }}
                 </a>
             </li>
             <li class="page-item" v-for="page in nextPages" :key="page">
-                <a href="#" class="page-link"
-                   @click.prevent="changePage(page)"
-                >
+                <a href="#" class="page-link" @click.prevent="changePage(page)">
                     {{ page }}
                 </a>
             </li>
-            <li class="page-item"
-                :class="{ disabled: nextIsDisabled }"
-            >
+            <li class="page-item" :class="{ disabled: nextIsDisabled }">
                 <a class="page-link" href="#"
                    @click.prevent="nextPage"
                    v-tooltip="labels.next"
                 >
-                    >
+                    {{">"}}
                 </a>
             </li>
-            <li class="page-item"
-                :class="{ disabled: nextIsDisabled }"
-            >
-                <a class="page-link" href="#"
-                   @click.prevent="lastPage"
-                   v-tooltip="labels.last"
-                >
-                    >>>
+            <li class="page-item" :class="{ disabled: nextIsDisabled }">
+                <a class="page-link" href="#" @click.prevent="lastPage" v-tooltip="labels.last">
+                    {{">>>"}}
                 </a>
             </li>
         </ul>
     </div>
 </template>
-​
 <script>
     export default {
         name: "TablePagination",
@@ -180,6 +156,3 @@
         }
     }
 </script>
-​
-<style scoped>
-</style>

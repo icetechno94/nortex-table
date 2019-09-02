@@ -148,8 +148,8 @@
 <script>
     import TableColumn from "./TableColumn";
     import TablePagination from "./TablePagination";
-    // import TableFilter from "./TableFilter";
-    // import DatetimeFilter from "./DatetimeFilter";
+    import TableFilter from "./TableFilter";
+    import DatetimeFilter from "./DatetimeFilter";
     export default {
         name: "NortexTable",
         components: {TablePagination, TableColumn},
@@ -214,11 +214,20 @@
             change_url:{
                 type: Boolean,
                 default: true
+            },
+            table_data: {
+                type: Array,
+                default: () => []
+            },
+            ajax_table: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                data: [],
+                data: this.table_data,
+                modify_url: this.change_url,
                 loading: true,
                 perPageLabels: {
                     per_page: this.localization.per_page  || this.$i18n.t('table.per_page'),
@@ -247,7 +256,9 @@
         },
         watch: {
             serverParams(){
-                this.loadItems();
+                if (this.table_data.length === 0){
+                    this.loadItems();
+                }
             },
             search_string(val){
                 this.updateParams({search: val});
@@ -259,6 +270,11 @@
         mounted() {
             this.setSearchParams();
             this.rebuildTable();
+            if (!this.ajax_table){
+                this.loading = false;
+                this.modify_url = false;
+                this.totalRecords = this.table_data.length;
+            }
         },
         computed: {
             currentFilters(){
@@ -358,7 +374,7 @@
             },
             updateParams(newProps) {
                 this.serverParams = Object.assign({}, this.serverParams, newProps);
-                if (this.change_url){
+                if (this.modify_url){
                     let query = Object.keys(this.serverParams).map(key => key + '=' + this.serverParams[key]).join('&');
                     history.replaceState({}, null, '?' + query);
                 }

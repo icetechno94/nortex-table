@@ -18,11 +18,6 @@
 </template>
 
 <script>
-    import Multiselect from 'vue-multiselect'
-    import 'vue-multiselect/dist/vue-multiselect.min.css';
-
-    // register globally
-    Vue.component('multiselect', Multiselect);
     export default {
         name: "TableFilter",
         components: { Multiselect },
