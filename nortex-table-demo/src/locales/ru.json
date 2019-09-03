@@ -1,0 +1,29 @@
+{
+  "table": {
+    "search": "Поиск",
+    "next": "Следующая",
+    "prev": "Предыдущая",
+    "first": "Первая",
+    "last": "Последняя",
+    "per_page": "Записей на странице",
+    "all": "Все",
+    "empty": "Записи отсутствуют.",
+    "of": "из",
+    "loading": "Загрузка..."
+  },
+  "date_filters": {
+    "today": "Сегодня",
+    "yesterday": "Вчера",
+    "seven_days": "7 дней",
+    "this_week": "Неделя",
+    "last_week": "Прошлая неделя",
+    "this_month": "Месяц",
+    "last_month": "Прошлый месяц"
+  },
+  "action": {
+    "filter": {
+      "select": "Выберите"
+    }
+  },
+  "select_date_range": "Выберите промежуток"
+}
