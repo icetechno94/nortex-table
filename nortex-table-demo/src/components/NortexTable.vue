@@ -334,7 +334,7 @@ export default {
       let datetimeFilter = this.filters.find(filter => {
         return filter.customize === "time";
       });
-      datetimeFilter = datetimeFilter ? datetimeFilter[0] : false;
+      datetimeFilter = datetimeFilter ? datetimeFilter : false;
       return datetimeFilter;
     }
   },
