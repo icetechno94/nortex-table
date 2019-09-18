@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mt-2">
     <div>{{ infoText }}</div>
     <ul class="pagination">
-      <li class="page-item" :class="{ disabled: prevIsDisabled }">
+      <li class="page-item" :class="{ disabled: prevIsDisabled && data_empty }">
         <a
           href="#"
           class="page-link"
@@ -79,13 +79,18 @@ export default {
     labels: {
       type: Object,
       default: () => {}
+    },
+    data_empty: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       currentPage: this.current_page,
       currentPerPage: this.current_per_page,
-      totalRecords: this.total_records
+      totalRecords: this.total_records,
+      dataEmpty: this.data_empty
     };
   },
   watch: {
@@ -107,6 +112,9 @@ export default {
     },
     currentPage() {
       this.pageChanged();
+    },
+    data_empty() {
+      this.dataEmpty = this.data_empty;
     }
   },
   computed: {
@@ -136,7 +144,7 @@ export default {
       return Array.from({ length: length }, (v, k) => this.currentPage + k + 1);
     },
     nextIsDisabled() {
-      return this.currentPage === this.pagesCount;
+      return this.currentPage === this.pagesCount || this.data_empty === true;
     },
     prevIsDisabled() {
       return this.currentPage === 1;
