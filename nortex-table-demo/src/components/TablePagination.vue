@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-between align-items-center mt-2">
-    <div>{{ infoText }}</div>
+  <div class="d-flex justify-content-between align-items-start">
+    <div class="mr-4 mt-2">{{ infoText }}</div>
     <ul class="pagination">
       <li class="page-item" :class="{ disabled: prevIsDisabled }">
         <a

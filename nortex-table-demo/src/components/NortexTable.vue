@@ -3,32 +3,8 @@
     <div class="card">
       <slot name="card-header"></slot>
       <div class="card-body">
-        <div class="d-flex justify-content-md-end align-items-start">
-          <label
-            class="mr-2 flex-grow-1 table-per-page d-md-inline-flex flex-column"
-            v-if="enable_pagination"
-          >
-            <span class="text-left">{{ perPageLabels.per_page }} </span>
-            <select
-              name="perPageSelect"
-              class="form-control form-control-sm"
-              v-model="perPage"
-            >
-              <option
-                :value="perPage"
-                v-if="!perPageDropdown.includes(perPage)"
-                >{{ perPage }}</option
-              >
-              <option
-                v-for="(option, idx) in perPageDropdown"
-                :key="'rows-dropdown-option-' + idx"
-                :value="option"
-                >{{ option }}</option
-              >
-              <option :value="totalRecords">{{ perPageLabels.all }}</option>
-            </select>
-          </label>
-          <div class="d-md-inline-flex">
+        <div class="d-flex justify-content-md-between align-items-start">
+          <div class="d-flex">
             <label
               class="order-sm-last table-search align-self-start"
               v-if="this.enable_search"
@@ -40,6 +16,8 @@
                 v-model="search_string"
               />
             </label>
+          </div>
+          <div class="d-md-inline-flex">
             <div
               class="mr-md-2 align-self-end"
               v-for="filter in currentFilters"
@@ -159,14 +137,40 @@
             </transition>
           </table>
         </div>
-        <table-pagination
-          v-if="enable_pagination"
-          :current_per_page="perPage"
-          :total_records="totalRecords"
-          :current_page="page"
-          :labels="paginationLabels"
-          @page-changed="onPageChange"
-        ></table-pagination>
+        <div class="d-flex justify-content-md-end align-items-start">
+          <label
+            class="mr-4 table-per-page d-md-inline-flex align-items-center"
+            v-if="enable_pagination"
+          >
+            <span class="mr-2">{{ perPageLabels.per_page }} </span>
+            <select
+              name="perPageSelect"
+              class="form-control form-control-sm"
+              v-model="perPage"
+            >
+              <option
+                :value="perPage"
+                v-if="!perPageDropdown.includes(perPage)"
+              >{{ perPage }}
+              </option>
+              <option
+                v-for="(option, idx) in perPageDropdown"
+                :key="'rows-dropdown-option-' + idx"
+                :value="option"
+              >{{ option }}
+              </option>
+              <option :value="totalRecords">{{ perPageLabels.all }}</option>
+            </select>
+          </label>
+          <table-pagination
+            v-if="enable_pagination"
+            :current_per_page="perPage"
+            :total_records="totalRecords"
+            :current_page="page"
+            :labels="paginationLabels"
+            @page-changed="onPageChange"
+          ></table-pagination>
+        </div>
       </div>
     </div>
     <slot name="after_content"></slot>
@@ -488,7 +492,7 @@ export default {
   .multiselect__tags {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    min-height: 45px !important;
+    min-height: 38px !important;
   }
   .sorting {
     position: relative;

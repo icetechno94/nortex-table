@@ -1,5 +1,5 @@
 <template>
-  <label class="table-datepicker mr-md-2 align-self-end">
+  <label class="table-datepicker">
     <span>{{ title }}</span>
     <vue-ctk-date-time-picker
       v-model="date"
@@ -104,5 +104,8 @@ export default {
 <style lang="scss">
 .custom-button {
   padding: 0 10px !important;
+}
+.field-input[data-v-a0144ed0] {
+  height: 38px !important;
 }
 </style>
