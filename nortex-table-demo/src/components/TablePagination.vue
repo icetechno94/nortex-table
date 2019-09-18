@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mt-2">
     <div>{{ infoText }}</div>
     <ul class="pagination">
-      <li class="page-item" :class="{ disabled: prevIsDisabled && data_empty }">
+      <li class="page-item" :class="{ disabled: prevIsDisabled }">
         <a
           href="#"
           class="page-link"
