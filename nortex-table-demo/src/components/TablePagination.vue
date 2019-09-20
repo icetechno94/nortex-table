@@ -1,5 +1,26 @@
 <template>
-  <div class="d-flex justify-content-between align-items-start">
+  <div class="d-flex justify-content-md-end align-items-start">
+    <label class="mr-4 table-per-page d-md-inline-flex align-items-center">
+      <span class="mr-2">{{ perPageLabels.per_page }}</span>
+      <select
+        name="perPageSelect"
+        class="form-control form-control-sm"
+        v-model="perPage"
+      >
+        <option
+                :value="perPage"
+                v-if="!perPageDropdown.includes(perPage)"
+        >{{ perPage }}
+        </option>
+        <option
+          v-for="(option, idx) in perPageDropdown"
+          :key="'rows-dropdown-option-' + idx"
+          :value="option"
+        >{{ option }}
+        </option>
+        <option :value="totalRecords">{{ perPageLabels.all }}</option>
+      </select>
+    </label>
     <div class="mr-4 mt-2">{{ infoText }}</div>
     <ul class="pagination">
       <li class="page-item" :class="{ disabled: prevIsDisabled }">
@@ -79,13 +100,28 @@ export default {
     labels: {
       type: Object,
       default: () => {}
+    },
+    per_page_labels: {
+      type: Object,
+      default: () => {}
+    },
+    per_page: {
+      type: Number,
+      default: 10
+    },
+    per_page_dropdown: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
       currentPage: this.current_page,
       currentPerPage: this.current_per_page,
-      totalRecords: this.total_records
+      totalRecords: this.total_records,
+      perPageLabels: this.per_page_labels,
+      perPage: this.per_page,
+      perPageDropdown: this.per_page_dropdown
     };
   },
   watch: {

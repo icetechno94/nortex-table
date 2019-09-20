@@ -137,40 +137,17 @@
             </transition>
           </table>
         </div>
-        <div class="d-flex justify-content-md-end align-items-start">
-          <label
-            class="mr-4 table-per-page d-md-inline-flex align-items-center"
-            v-if="enable_pagination"
-          >
-            <span class="mr-2">{{ perPageLabels.per_page }} </span>
-            <select
-              name="perPageSelect"
-              class="form-control form-control-sm"
-              v-model="perPage"
-            >
-              <option
-                :value="perPage"
-                v-if="!perPageDropdown.includes(perPage)"
-              >{{ perPage }}
-              </option>
-              <option
-                v-for="(option, idx) in perPageDropdown"
-                :key="'rows-dropdown-option-' + idx"
-                :value="option"
-              >{{ option }}
-              </option>
-              <option :value="totalRecords">{{ perPageLabels.all }}</option>
-            </select>
-          </label>
-          <table-pagination
-            v-if="enable_pagination"
-            :current_per_page="perPage"
-            :total_records="totalRecords"
-            :current_page="page"
-            :labels="paginationLabels"
-            @page-changed="onPageChange"
-          ></table-pagination>
-        </div>
+        <table-pagination
+          v-if="enable_pagination"
+          :current_per_page="perPage"
+          :total_records="totalRecords"
+          :current_page="page"
+          :labels="paginationLabels"
+          :per_page_labels="perPageLabels"
+          :per_page="perPage"
+          :per_page_dropdown="perPageDropdown"
+          @page-changed="onPageChange"
+        ></table-pagination>
       </div>
     </div>
     <slot name="after_content"></slot>
