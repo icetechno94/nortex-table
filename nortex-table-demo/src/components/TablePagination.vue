@@ -5,18 +5,18 @@
       <select
         name="perPageSelect"
         class="form-control form-control-sm"
-        v-model="perPage"
+        v-model="currentPerPage"
       >
         <option
-                :value="perPage"
-                v-if="!perPageDropdown.includes(perPage)"
-        >{{ perPage }}
+          :value="currentPerPage"
+          v-if="!perPageDropdown.includes(currentPerPage)"
+          >{{ currentPerPage }}
         </option>
         <option
           v-for="(option, idx) in perPageDropdown"
           :key="'rows-dropdown-option-' + idx"
           :value="option"
-        >{{ option }}
+          >{{ option }}
         </option>
         <option :value="totalRecords">{{ perPageLabels.all }}</option>
       </select>
@@ -28,7 +28,7 @@
           href="#"
           class="page-link"
           @click.prevent="firstPage"
-          v-tooltip="labels.first"
+          :data-title="labels.first"
         >
           {{ "<<<" }}
         </a>
@@ -38,7 +38,7 @@
           href="#"
           class="page-link"
           @click.prevent="previousPage"
-          v-tooltip="labels.prev"
+          :data-title="labels.prev"
         >
           {{ "<" }}
         </a>
@@ -63,7 +63,7 @@
           class="page-link"
           href="#"
           @click.prevent="nextPage"
-          v-tooltip="labels.next"
+          :data-title="labels.next"
         >
           {{ ">" }}
         </a>
@@ -73,7 +73,7 @@
           class="page-link"
           href="#"
           @click.prevent="lastPage"
-          v-tooltip="labels.last"
+          :data-title="labels.last"
         >
           {{ ">>>" }}
         </a>
@@ -120,7 +120,6 @@ export default {
       currentPerPage: this.current_per_page,
       totalRecords: this.total_records,
       perPageLabels: this.per_page_labels,
-      perPage: this.per_page,
       perPageDropdown: this.per_page_dropdown
     };
   },
@@ -144,7 +143,8 @@ export default {
     currentPage() {
       this.pageChanged();
     },
-    perPage() {
+    currentPerPage() {
+      this.firstPage();
       this.perPageChanged();
     }
   },
@@ -226,7 +226,7 @@ export default {
       this.$emit("page-changed", { currentPage: this.currentPage });
     },
     perPageChanged() {
-      this.$emit("per-page-changed", { perPage: this.perPage });
+      this.$emit("per-page-changed", { currentPerPage: this.currentPerPage });
     }
   }
 };

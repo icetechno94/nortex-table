@@ -53,7 +53,7 @@
               @sort-changed="onSortChanged"
             ></table-column>
             <transition name="fade" mode="out-in">
-              <tbody v-if="emit_data_up" key="emit">
+              <tbody v-if="emit_data_up" :key="'emit'">
                 <slot
                   name="empty"
                   v-bind:empty_text="localization.empty || $t('table.empty')"
@@ -61,7 +61,7 @@
                 <slot name="content"></slot>
                 <slot name="last_row"></slot>
               </tbody>
-              <tbody v-else-if="loading" key="loading">
+              <tbody v-else-if="loading" :key="'loading'">
                 <tr>
                   <td :colspan="allColumns.length">
                     <p class="d-flex justify-content-center">
@@ -72,7 +72,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-else-if="data.length === 0" key="empty">
+              <tbody v-else-if="data.length === 0" :key="'empty'">
                 <tr>
                   <td :colspan="allColumns.length">
                     <p class="d-flex justify-content-center">
@@ -83,7 +83,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-else key="data">
+              <tbody v-else :key="'data'">
                 <tr
                   v-for="(row, index) in data"
                   :key="'row' + index"
@@ -101,7 +101,7 @@
                           :key="action.title"
                           :class="action.button_class"
                           :href="action.url"
-                          v-tooltip="action.title"
+                          :data-title="action.title"
                           v-if="action.action === 'link'"
                         >
                           <i :class="action.icon_class"></i>
@@ -111,7 +111,7 @@
                           :key="action.title"
                           :class="action.button_class"
                           @click="runAction(action)"
-                          v-tooltip="action.title"
+                          :data-title="action.title"
                           v-if="action.action !== 'link'"
                         >
                           <i :class="action.icon_class"></i>
@@ -415,8 +415,7 @@ export default {
       this.updateParams({ page: params.currentPage });
     },
     onPerPageChange(params) {
-      this.perPage = params.perPage;
-      this.updateParams({ perPage: params.perPage });
+      this.perPage = params.currentPerPage;
     },
     onSortChanged(params) {
       this.sortType = params.sortType;
