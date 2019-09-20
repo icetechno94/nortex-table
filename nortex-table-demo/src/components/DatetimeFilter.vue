@@ -105,7 +105,7 @@ export default {
 .custom-button {
   padding: 0 10px !important;
 }
-.field-input[data-v-a0144ed0] {
+.field-input {
   height: 38px !important;
 }
 </style>
