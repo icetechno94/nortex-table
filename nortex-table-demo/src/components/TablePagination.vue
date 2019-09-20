@@ -136,7 +136,7 @@ export default {
       return Array.from({ length: length }, (v, k) => this.currentPage + k + 1);
     },
     nextIsDisabled() {
-      return this.currentPage === this.pagesCount;
+      return this.currentPage === this.pagesCount || this.pagesCount === 0;
     },
     prevIsDisabled() {
       return this.currentPage === 1;
