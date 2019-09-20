@@ -143,6 +143,9 @@ export default {
     },
     currentPage() {
       this.pageChanged();
+    },
+    perPage() {
+      this.perPageChanged();
     }
   },
   computed: {
@@ -221,6 +224,9 @@ export default {
     },
     pageChanged() {
       this.$emit("page-changed", { currentPage: this.currentPage });
+    },
+    perPageChanged() {
+      this.$emit("per-page-changed", { perPage: this.perPage });
     }
   }
 };

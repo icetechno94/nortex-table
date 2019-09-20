@@ -147,6 +147,7 @@
           :per_page="perPage"
           :per_page_dropdown="perPageDropdown"
           @page-changed="onPageChange"
+          @per-page-changed="onPerPageChange"
         ></table-pagination>
       </div>
     </div>
@@ -412,6 +413,10 @@ export default {
     onPageChange(params) {
       this.page = params.currentPage;
       this.updateParams({ page: params.currentPage });
+    },
+    onPerPageChange(params) {
+      this.perPage = params.perPage;
+      this.updateParams({ perPage: params.perPage });
     },
     onSortChanged(params) {
       this.sortType = params.sortType;
