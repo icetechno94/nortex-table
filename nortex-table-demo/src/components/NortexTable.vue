@@ -165,7 +165,6 @@
           :total_records="totalRecords"
           :current_page="page"
           :labels="paginationLabels"
-          :data_empty="dataEmpty"
           @page-changed="onPageChange"
         ></table-pagination>
       </div>
@@ -283,8 +282,7 @@ export default {
       searchParams: {},
       timeout: "",
       search_string: "",
-      search: location.search.substring(1),
-      dataEmpty: true
+      search: location.search.substring(1)
     };
   },
   watch: {
@@ -305,7 +303,6 @@ export default {
       this.loading = false;
       this.modify_url = false;
       this.totalRecords = this.table_data.length;
-      this.table_data.length !== 0 ? this.dataEmpty = false : this.dataEmpty = true;
     }
     this.setSearchParams();
     this.rebuildTable();

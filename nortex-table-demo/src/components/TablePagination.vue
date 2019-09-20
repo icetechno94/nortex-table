@@ -79,18 +79,13 @@ export default {
     labels: {
       type: Object,
       default: () => {}
-    },
-    data_empty: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
       currentPage: this.current_page,
       currentPerPage: this.current_per_page,
-      totalRecords: this.total_records,
-      dataEmpty: this.data_empty
+      totalRecords: this.total_records
     };
   },
   watch: {
@@ -112,9 +107,6 @@ export default {
     },
     currentPage() {
       this.pageChanged();
-    },
-    data_empty() {
-      this.dataEmpty = this.data_empty;
     }
   },
   computed: {
@@ -144,7 +136,7 @@ export default {
       return Array.from({ length: length }, (v, k) => this.currentPage + k + 1);
     },
     nextIsDisabled() {
-      return this.currentPage === this.pagesCount || this.data_empty === true;
+      return this.currentPage === this.pagesCount || this.pagesCount === 0;
     },
     prevIsDisabled() {
       return this.currentPage === 1;

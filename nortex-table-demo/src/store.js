@@ -20,66 +20,6 @@ export default new Vuex.Store({
         email: "test2@test.ru",
         firstname: "test2",
         lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
-      },
-      {
-        email: "test1@test.ru",
-        firstname: "test1",
-        lastname: "test1"
-      },
-      {
-        email: "test2@test.ru",
-        firstname: "test2",
-        lastname: "test2"
       }
     ],
     columns: [
