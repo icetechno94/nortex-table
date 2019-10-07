@@ -101,7 +101,7 @@
                           :key="action.title"
                           :class="action.button_class"
                           :href="action.url"
-                          :data-title="action.title"
+                          v-tooltip="action.title"
                           v-if="action.action === 'link'"
                         >
                           <i :class="action.icon_class"></i>
@@ -111,7 +111,7 @@
                           :key="action.title"
                           :class="action.button_class"
                           @click="runAction(action)"
-                          :data-title="action.title"
+                          v-tooltip="action.title"
                           v-if="action.action !== 'link'"
                         >
                           <i :class="action.icon_class"></i>

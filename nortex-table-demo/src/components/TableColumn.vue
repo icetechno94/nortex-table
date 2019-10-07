@@ -14,7 +14,7 @@
           <i
             class="icon-question ml-1"
             v-if="column.title"
-            :data-title="column.title"
+            v-tooltip="column.title"
           ></i>
         </span>
       </th>
@@ -31,7 +31,7 @@
           <i
             class="icon-question ml-1"
             v-if="column.title"
-            :data-title="column.title"
+            v-tooltip="column.title"
           ></i>
         </span>
       </th>

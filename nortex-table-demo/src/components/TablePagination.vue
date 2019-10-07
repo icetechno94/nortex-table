@@ -28,7 +28,7 @@
           href="#"
           class="page-link"
           @click.prevent="firstPage"
-          :data-title="labels.first"
+          v-tooltip="labels.first"
         >
           {{ "<<<" }}
         </a>
@@ -38,7 +38,7 @@
           href="#"
           class="page-link"
           @click.prevent="previousPage"
-          :data-title="labels.prev"
+          v-tooltip="labels.prev"
         >
           {{ "<" }}
         </a>
@@ -63,7 +63,7 @@
           class="page-link"
           href="#"
           @click.prevent="nextPage"
-          :data-title="labels.next"
+          v-tooltip="labels.next"
         >
           {{ ">" }}
         </a>
@@ -73,7 +73,7 @@
           class="page-link"
           href="#"
           @click.prevent="lastPage"
-          :data-title="labels.last"
+          v-tooltip="labels.last"
         >
           {{ ">>>" }}
         </a>
