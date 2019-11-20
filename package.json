@@ -5,7 +5,8 @@
   "description": "Vue component for table",
   "main": "./dist/nortex-table.min.js",
   "scripts": {
-    "build": "bili --bundle-node-modules"
+    "build": "bili --bundle-node-modules",
+    "test": "cd nortex-table-demo && npm run test:unit && cd .."
   },
   "files": [
     "dist/*"
