@@ -30,7 +30,7 @@
           @click.prevent="firstPage"
           v-tooltip="labels.first"
         >
-          {{ "<<<" }}
+          {{ arrowButtons.first }}
         </a>
       </li>
       <li class="page-item" :class="{ disabled: prevIsDisabled }">
@@ -40,7 +40,7 @@
           @click.prevent="previousPage"
           v-tooltip="labels.prev"
         >
-          {{ "<" }}
+          {{ arrowButtons.prev }}
         </a>
       </li>
       <li class="page-item" v-for="page in prevPages" :key="page">
@@ -65,7 +65,7 @@
           @click.prevent="nextPage"
           v-tooltip="labels.next"
         >
-          {{ ">" }}
+          {{ arrowButtons.next }}
         </a>
       </li>
       <li class="page-item" :class="{ disabled: nextIsDisabled }">
@@ -75,7 +75,7 @@
           @click.prevent="lastPage"
           v-tooltip="labels.last"
         >
-          {{ ">>>" }}
+          {{ arrowButtons.last }}
         </a>
       </li>
     </ul>
@@ -99,11 +99,24 @@ export default {
     },
     labels: {
       type: Object,
-      default: () => {}
+      default: () => {
+        return {
+          next: "next",
+          prev: "prev",
+          of: "of",
+          first: "first",
+          last: "last"
+        };
+      }
     },
     per_page_labels: {
       type: Object,
-      default: () => {}
+      default: () => {
+        return {
+          per_page: "per_page",
+          all: "all"
+        };
+      }
     },
     per_page: {
       type: Number,
@@ -116,11 +129,17 @@ export default {
   },
   data() {
     return {
-      currentPage: this.current_page,
+      currentPage: this.current_page > 0 ? this.current_page : 1,
       currentPerPage: this.current_per_page,
       totalRecords: this.total_records,
       perPageLabels: this.per_page_labels,
-      perPageDropdown: this.per_page_dropdown
+      perPageDropdown: this.per_page_dropdown,
+      arrowButtons: {
+        next: ">",
+        prev: "<",
+        last: ">>>",
+        first: "<<<"
+      }
     };
   },
   watch: {
