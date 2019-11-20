@@ -8,15 +8,22 @@ image: node:12.9.1
 pipelines:
   default:
     - step:
-        name: 'Test&Build'
+        name: 'Test'
         caches:
           - node
         script:
           - npm install
           - npm run test
-          - npm run build
   branches:
     master:
+      - step:
+          name: 'Test&Build'
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+            - npm run build
       - step:
           name: 'Publish'
           deployment: production
