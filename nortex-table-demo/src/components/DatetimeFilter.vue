@@ -1,8 +1,9 @@
 <template>
-  <label class="table-datepicker mr-md-2 align-self-end">
+  <label class="table-datepicker">
     <span>{{ title }}</span>
     <vue-ctk-date-time-picker
       v-model="date"
+      :id="random_id"
       :range="true"
       :label="$t('select_date_range')"
       format="YYYY-MM-DD"
@@ -33,6 +34,13 @@ export default {
   },
   data() {
     return {
+      random_id:
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15),
       date: { start: this.time_from, end: this.time_to },
       maxDate: new Date().toISOString(),
       locale: this.$i18n.locale,
@@ -104,5 +112,8 @@ export default {
 <style lang="scss">
 .custom-button {
   padding: 0 10px !important;
+}
+.field-input {
+  height: 38px !important;
 }
 </style>

@@ -3,32 +3,8 @@
     <div class="card">
       <slot name="card-header"></slot>
       <div class="card-body">
-        <div class="d-flex justify-content-md-end align-items-start">
-          <label
-            class="mr-2 flex-grow-1 table-per-page d-md-inline-flex flex-column"
-            v-if="enable_pagination"
-          >
-            <span class="text-left">{{ perPageLabels.per_page }} </span>
-            <select
-              name="perPageSelect"
-              class="form-control form-control-sm"
-              v-model="perPage"
-            >
-              <option
-                :value="perPage"
-                v-if="!perPageDropdown.includes(perPage)"
-                >{{ perPage }}</option
-              >
-              <option
-                v-for="(option, idx) in perPageDropdown"
-                :key="'rows-dropdown-option-' + idx"
-                :value="option"
-                >{{ option }}</option
-              >
-              <option :value="totalRecords">{{ perPageLabels.all }}</option>
-            </select>
-          </label>
-          <div class="d-md-inline-flex">
+        <div class="d-flex justify-content-md-between align-items-start">
+          <div class="d-flex">
             <label
               class="order-sm-last table-search align-self-start"
               v-if="this.enable_search"
@@ -40,6 +16,8 @@
                 v-model="search_string"
               />
             </label>
+          </div>
+          <div class="d-md-inline-flex">
             <div
               class="mr-md-2 align-self-end"
               v-for="filter in currentFilters"
@@ -75,7 +53,7 @@
               @sort-changed="onSortChanged"
             ></table-column>
             <transition name="fade" mode="out-in">
-              <tbody v-if="emit_data_up" key="emit">
+              <tbody v-if="emit_data_up" :key="'emit'">
                 <slot
                   name="empty"
                   v-bind:empty_text="localization.empty || $t('table.empty')"
@@ -83,7 +61,7 @@
                 <slot name="content"></slot>
                 <slot name="last_row"></slot>
               </tbody>
-              <tbody v-else-if="loading" key="loading">
+              <tbody v-else-if="loading" :key="'loading'">
                 <tr>
                   <td :colspan="allColumns.length">
                     <p class="d-flex justify-content-center">
@@ -94,7 +72,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-else-if="data.length === 0" key="empty">
+              <tbody v-else-if="data.length === 0" :key="'empty'">
                 <tr>
                   <td :colspan="allColumns.length">
                     <p class="d-flex justify-content-center">
@@ -105,7 +83,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody v-else key="data">
+              <tbody v-else :key="'data'">
                 <tr
                   v-for="(row, index) in data"
                   :key="'row' + index"
@@ -165,7 +143,11 @@
           :total_records="totalRecords"
           :current_page="page"
           :labels="paginationLabels"
+          :per_page_labels="perPageLabels"
+          :per_page="perPage"
+          :per_page_dropdown="perPageDropdown"
           @page-changed="onPageChange"
+          @per-page-changed="onPerPageChange"
         ></table-pagination>
       </div>
     </div>
@@ -432,6 +414,9 @@ export default {
       this.page = params.currentPage;
       this.updateParams({ page: params.currentPage });
     },
+    onPerPageChange(params) {
+      this.perPage = params.currentPerPage;
+    },
     onSortChanged(params) {
       this.sortType = params.sortType;
       this.sortBy = params.sortBy;
@@ -488,7 +473,7 @@ export default {
   .multiselect__tags {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    min-height: 45px !important;
+    min-height: 38px !important;
   }
   .sorting {
     position: relative;

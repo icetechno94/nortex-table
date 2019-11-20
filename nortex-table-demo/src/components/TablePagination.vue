@@ -1,6 +1,27 @@
 <template>
-  <div class="d-flex justify-content-between align-items-center mt-2">
-    <div>{{ infoText }}</div>
+  <div class="d-flex justify-content-md-end align-items-start">
+    <label class="mr-4 table-per-page d-md-inline-flex align-items-center">
+      <span class="mr-2">{{ perPageLabels.per_page }}</span>
+      <select
+        name="perPageSelect"
+        class="form-control form-control-sm"
+        v-model="currentPerPage"
+      >
+        <option
+          :value="currentPerPage"
+          v-if="!perPageDropdown.includes(currentPerPage)"
+          >{{ currentPerPage }}
+        </option>
+        <option
+          v-for="(option, idx) in perPageDropdown"
+          :key="'rows-dropdown-option-' + idx"
+          :value="option"
+          >{{ option }}
+        </option>
+        <option :value="totalRecords">{{ perPageLabels.all }}</option>
+      </select>
+    </label>
+    <div class="mr-4 mt-2">{{ infoText }}</div>
     <ul class="pagination">
       <li class="page-item" :class="{ disabled: prevIsDisabled }">
         <a
@@ -79,13 +100,27 @@ export default {
     labels: {
       type: Object,
       default: () => {}
+    },
+    per_page_labels: {
+      type: Object,
+      default: () => {}
+    },
+    per_page: {
+      type: Number,
+      default: 10
+    },
+    per_page_dropdown: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
       currentPage: this.current_page,
       currentPerPage: this.current_per_page,
-      totalRecords: this.total_records
+      totalRecords: this.total_records,
+      perPageLabels: this.per_page_labels,
+      perPageDropdown: this.per_page_dropdown
     };
   },
   watch: {
@@ -107,6 +142,10 @@ export default {
     },
     currentPage() {
       this.pageChanged();
+    },
+    currentPerPage() {
+      this.firstPage();
+      this.perPageChanged();
     }
   },
   computed: {
@@ -136,7 +175,7 @@ export default {
       return Array.from({ length: length }, (v, k) => this.currentPage + k + 1);
     },
     nextIsDisabled() {
-      return this.currentPage === this.pagesCount;
+      return this.currentPage === this.pagesCount || this.pagesCount === 0;
     },
     prevIsDisabled() {
       return this.currentPage === 1;
@@ -185,6 +224,9 @@ export default {
     },
     pageChanged() {
       this.$emit("page-changed", { currentPage: this.currentPage });
+    },
+    perPageChanged() {
+      this.$emit("per-page-changed", { currentPerPage: this.currentPerPage });
     }
   }
 };
