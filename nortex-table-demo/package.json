@@ -14,7 +14,7 @@
     "core-js": "^2.6.5",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
-    "vue-ctk-date-time-picker": "^2.1.1",
+    "vue-ctk-date-time-picker": "^2.4.0",
     "vue-i18n": "^8.14.0",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.0.3",
