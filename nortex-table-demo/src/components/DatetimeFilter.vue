@@ -46,36 +46,43 @@ export default {
       locale: this.$i18n.locale,
       shortcuts: [
         {
+          key: "today",
           label: this.$i18n.t("date_filters.today"),
           value: "day",
           isSelected: false
         },
         {
+          key: "yesterday",
           label: this.$i18n.t("date_filters.yesterday"),
           value: "-day",
           isSelected: false
         },
         {
+          key: "sevenDays",
           label: this.$i18n.t("date_filters.seven_days"),
           value: 7,
           isSelected: false
         },
         {
+          key: "thisWeek",
           label: this.$i18n.t("date_filters.this_week"),
           value: "isoWeek",
           isSelected: false
         },
         {
+          key: "lastWeek",
           label: this.$i18n.t("date_filters.last_week"),
           value: "-isoWeek",
           isSelected: false
         },
         {
+          key: "thisMonth",
           label: this.$i18n.t("date_filters.this_month"),
           value: "month",
           isSelected: false
         },
         {
+          key: "lastMonth",
           label: this.$i18n.t("date_filters.last_month"),
           value: "-month",
           isSelected: false
