@@ -27,6 +27,7 @@ pipelines:
           name: 'Publish'
           deployment: production
           script:
+            - npm install
             - npm run build
             - pipe: atlassian/npm-publish:0.2.5
               variables:
