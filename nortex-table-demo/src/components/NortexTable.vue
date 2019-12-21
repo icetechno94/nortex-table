@@ -438,11 +438,10 @@ export default {
           .then(({ data }) => {
             if (that.emit_data_up) {
               that.$emit("emit_data", data);
-            } else {
-              that.totalRecords = data.recordsTotal;
-              that.data = data.data;
-              that.loading = false;
             }
+            that.totalRecords = data.recordsTotal;
+            that.data = data.data;
+            that.loading = false;
           });
       }, 500);
     }
