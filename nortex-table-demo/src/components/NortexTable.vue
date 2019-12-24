@@ -45,6 +45,7 @@
         <div class="table-responsive">
           <table class="table table-bordered">
             <table-column
+              v-if="show_columns"
               :columns="columns"
               :sort_by="sortBy"
               :sort_type="sortType"
@@ -233,6 +234,10 @@ export default {
       default: () => []
     },
     ajax_table: {
+      type: Boolean,
+      default: true
+    },
+    show_columns: {
       type: Boolean,
       default: true
     }
