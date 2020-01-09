@@ -65,22 +65,26 @@
               <tbody v-else-if="loading" :key="'loading'">
                 <tr>
                   <td :colspan="allColumns.length">
-                    <p class="d-flex justify-content-center">
-                      <span>
-                        {{ localization.loading || $t("table.loading") }}
-                      </span>
-                    </p>
+                    <slot name="loading">
+                      <p class="d-flex justify-content-center">
+                        <span>
+                          {{ localization.loading || $t("table.loading") }}
+                        </span>
+                      </p>
+                    </slot>
                   </td>
                 </tr>
               </tbody>
               <tbody v-else-if="data.length === 0" :key="'empty'">
-                <tr>
+                <tr class="empty-row">
                   <td :colspan="allColumns.length">
-                    <p class="d-flex justify-content-center">
-                      <span>
-                        {{ localization.empty || $t("table.empty") }}
-                      </span>
-                    </p>
+                    <slot name="empty">
+                      <p class="d-flex justify-content-center">
+                        <span>
+                          {{ localization.empty || $t("table.empty") }}
+                        </span>
+                      </p>
+                    </slot>
                   </td>
                 </tr>
               </tbody>
