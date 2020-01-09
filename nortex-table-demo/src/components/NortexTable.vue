@@ -63,7 +63,7 @@
                 <slot name="last_row"></slot>
               </tbody>
               <tbody v-else-if="loading" :key="'loading'">
-                <tr>
+                <tr class="loading-row">
                   <td :colspan="allColumns.length">
                     <slot name="loading">
                       <p class="d-flex justify-content-center">
