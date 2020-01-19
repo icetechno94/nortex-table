@@ -1,39 +1,20 @@
 <template>
-  <div class="d-flex justify-content-md-end align-items-start">
-    <label class="mr-4 table-per-page d-md-inline-flex align-items-center">
-      <span class="mr-2">{{ perPageLabels.per_page }}</span>
-      <select
-        name="perPageSelect"
-        class="form-control form-control-sm"
+  <div class="nortex-table-pagination d-flex justify-content-md-end align-items-start">
+    <div class="mr-4 mt-2" v-if="is_per_page_enabled">{{ infoText }}</div>
+    <label class="nortex-table-pagination-per-page d-md-inline-flex align-items-center mr-4" v-if="is_per_page_enabled">
+      <multiselect
         v-model="currentPerPage"
-      >
-        <option
-          :value="currentPerPage"
-          v-if="!perPageDropdown.includes(currentPerPage)"
-          >{{ currentPerPage }}
-        </option>
-        <option
-          v-for="(option, idx) in perPageDropdown"
-          :key="'rows-dropdown-option-' + idx"
-          :value="option"
-          >{{ option }}
-        </option>
-        <option :value="totalRecords">{{ perPageLabels.all }}</option>
-      </select>
+        label="name"
+        track-by="id"
+        :options="perPageSelectList"
+        :show-labels="false"
+        :allowEmpty="false"
+        :preselectFirst="true"
+        :searchable="false"
+      />
     </label>
-    <div class="mr-4 mt-2">{{ infoText }}</div>
-    <ul class="pagination">
-      <li class="page-item" :class="{ disabled: prevIsDisabled }">
-        <a
-          href="#"
-          class="page-link"
-          @click.prevent="firstPage"
-          v-tooltip="labels.first"
-        >
-          {{ arrowButtons.first }}
-        </a>
-      </li>
-      <li class="page-item" :class="{ disabled: prevIsDisabled }">
+    <ul class="pagination nortex-table-pagination-pages">
+      <li class="page-item prev" :class="{ disabled: prevIsDisabled }">
         <a
           href="#"
           class="page-link"
@@ -42,6 +23,14 @@
         >
           {{ arrowButtons.prev }}
         </a>
+      </li>
+      <li class="page-item first" v-show="!firstIsDisabled">
+        <a href="#" class="page-link" @click.prevent="firstPage">
+          {{ 1 }}
+        </a>
+      </li>
+      <li class="page-item disabled" v-show="!firstIsDisabled">
+        <a href="#" class="page-link">...</a>
       </li>
       <li class="page-item" v-for="page in prevPages" :key="page">
         <a href="#" class="page-link" @click.prevent="changePage(page)">
@@ -58,7 +47,19 @@
           {{ page }}
         </a>
       </li>
-      <li class="page-item" :class="{ disabled: nextIsDisabled }">
+      <li class="page-item disabled" v-show="!lastIsDisabled">
+        <a href="#" class="page-link">...</a>
+      </li>
+      <li class="page-item last" v-show="!lastIsDisabled">
+        <a
+          class="page-link"
+          href="#"
+          @click.prevent="lastPage"
+        >
+          {{ pagesCount }}
+        </a>
+      </li>
+      <li class="page-item next" :class="{ disabled: nextIsDisabled }">
         <a
           class="page-link"
           href="#"
@@ -66,16 +67,6 @@
           v-tooltip="labels.next"
         >
           {{ arrowButtons.next }}
-        </a>
-      </li>
-      <li class="page-item" :class="{ disabled: nextIsDisabled }">
-        <a
-          class="page-link"
-          href="#"
-          @click.prevent="lastPage"
-          v-tooltip="labels.last"
-        >
-          {{ arrowButtons.last }}
         </a>
       </li>
     </ul>
@@ -125,12 +116,19 @@ export default {
     per_page_dropdown: {
       type: Array,
       default: () => []
+    },
+    is_per_page_enabled: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
     return {
       currentPage: this.current_page > 0 ? this.current_page : 1,
-      currentPerPage: this.current_per_page,
+      currentPerPage: {
+        id: this.current_per_page,
+        name: this.current_per_page
+      },
       totalRecords: this.total_records,
       perPageLabels: this.per_page_labels,
       perPageDropdown: this.per_page_dropdown,
@@ -151,7 +149,7 @@ export default {
       }
     },
     current_per_page() {
-      this.currentPerPage = this.current_per_page;
+      this.currentPerPage = {id: this.current_per_page, name: this.current_per_page};
     },
     total_records() {
       this.totalRecords = this.total_records;
@@ -193,14 +191,20 @@ export default {
           : this.pagesCount - this.currentPage;
       return Array.from({ length: length }, (v, k) => this.currentPage + k + 1);
     },
+    lastIsDisabled() {
+      return this.nextPages.includes(this.pagesCount) || this.nextPages.length === 0;
+    },
     nextIsDisabled() {
       return this.currentPage === this.pagesCount || this.pagesCount === 0;
+    },
+    firstIsDisabled() {
+      return this.prevPages.includes(1) || this.prevPages.length === 0;
     },
     prevIsDisabled() {
       return this.currentPage === 1;
     },
     pagesCount() {
-      return Math.ceil(this.totalRecords / this.currentPerPage);
+      return Math.ceil(this.totalRecords / this.currentPerPage.id);
     },
     itemStart() {
       if (this.totalRecords > 0) {
@@ -208,7 +212,9 @@ export default {
           return 1;
         } else {
           return (
-            this.currentPage * this.currentPerPage - this.currentPerPage + 1
+            this.currentPage * this.currentPerPage.id -
+            this.currentPerPage.id +
+            1
           );
         }
       } else {
@@ -216,13 +222,24 @@ export default {
       }
     },
     itemEnd() {
-      if (this.totalRecords < this.itemStart + this.currentPerPage - 1) {
+      if (this.totalRecords < this.itemStart + this.currentPerPage.id - 1) {
         return this.totalRecords;
       } else if (this.totalRecords > 0) {
-        return this.itemStart + this.currentPerPage - 1;
+        return this.itemStart + this.currentPerPage.id - 1;
       } else {
         return 0;
       }
+    },
+    perPageSelectList() {
+      let data = [];
+      if (!this.perPageDropdown.includes(this.currentPerPage.id)) {
+        data.push({ id: this.currentPerPage.id, name: this.currentPerPage.id });
+      }
+      this.perPageDropdown.forEach(item => {
+        data.push({ id: item, name: item });
+      });
+      data.push({ id: this.totalRecords, name: this.perPageLabels.all });
+      return data;
     }
   },
   methods: {
@@ -245,7 +262,7 @@ export default {
       this.$emit("page-changed", { currentPage: this.currentPage });
     },
     perPageChanged() {
-      this.$emit("per-page-changed", { currentPerPage: this.currentPerPage });
+      this.$emit("per-page-changed", { currentPerPage: this.currentPerPage.id });
     }
   }
 };

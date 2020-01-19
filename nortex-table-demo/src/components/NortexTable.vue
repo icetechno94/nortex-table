@@ -151,6 +151,7 @@
           :per_page_labels="perPageLabels"
           :per_page="perPage"
           :per_page_dropdown="perPageDropdown"
+          :is_per_page_enabled="enable_per_page"
           @page-changed="onPageChange"
           @per-page-changed="onPerPageChange"
         ></table-pagination>
@@ -218,6 +219,10 @@ export default {
       default: true
     },
     enable_pagination: {
+      type: Boolean,
+      default: true
+    },
+    enable_per_page: {
       type: Boolean,
       default: true
     },
