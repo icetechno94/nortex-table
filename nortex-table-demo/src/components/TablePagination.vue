@@ -29,7 +29,7 @@
           {{ 1 }}
         </a>
       </li>
-      <li class="page-item disabled" v-show="!firstIsDisabled">
+      <li class="page-item disabled" v-show="afterFirstPeriodIsShown">
         <a href="#" class="page-link">...</a>
       </li>
       <li class="page-item" v-for="page in prevPages" :key="page">
@@ -47,7 +47,7 @@
           {{ page }}
         </a>
       </li>
-      <li class="page-item disabled" v-show="!lastIsDisabled">
+      <li class="page-item disabled" v-show="beforeLastPeriodIsShown">
         <a href="#" class="page-link">...</a>
       </li>
       <li class="page-item last" v-show="!lastIsDisabled">
@@ -194,11 +194,17 @@ export default {
     lastIsDisabled() {
       return this.nextPages.includes(this.pagesCount) || this.nextPages.length === 0;
     },
+    beforeLastPeriodIsShown() {
+      return this.currentPage < this.pagesCount - 3;
+    },
     nextIsDisabled() {
       return this.currentPage === this.pagesCount || this.pagesCount === 0;
     },
     firstIsDisabled() {
       return this.prevPages.includes(1) || this.prevPages.length === 0;
+    },
+    afterFirstPeriodIsShown() {
+      return this.currentPage > 4;
     },
     prevIsDisabled() {
       return this.currentPage === 1;
