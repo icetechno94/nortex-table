@@ -1,5 +1,5 @@
 <template>
-  <div class="nortex-table-pagination d-flex justify-content-md-end align-items-start">
+  <div class="nortex-table-pagination d-flex justify-content-md-end align-items-start" v-if="total_records > 0">
     <div class="mr-4 mt-2" v-if="is_per_page_enabled">{{ infoText }}</div>
     <label class="nortex-table-pagination-per-page d-md-inline-flex align-items-center mr-4" v-if="is_per_page_enabled">
       <multiselect
