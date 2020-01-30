@@ -55,12 +55,28 @@
             ></table-column>
             <transition name="fade" mode="out-in">
               <tbody v-if="emit_data_up" :key="'emit'">
-                <slot name="loading" v-if="loading"></slot>
-                <slot
-                  v-else-if="data.length === 0"
-                  name="empty"
-                  v-bind:empty_text="localization.empty || $t('table.empty')"
-                ></slot>
+                <tr class="loading-row" v-if="loading">
+                  <td :colspan="allColumns.length">
+                    <slot name="loading">
+                      <p class="d-flex justify-content-center">
+                        <span>
+                          {{ localization.loading || $t("table.loading") }}
+                        </span>
+                      </p>
+                    </slot>
+                  </td>
+                </tr>
+                <tr class="empty-row" v-else-if="data.length === 0">
+                  <td :colspan="allColumns.length">
+                    <slot name="empty">
+                      <p class="d-flex justify-content-center">
+                        <span>
+                          {{ localization.empty || $t("table.empty") }}
+                        </span>
+                      </p>
+                    </slot>
+                  </td>
+                </tr>
                 <template v-else>
                   <slot name="content"></slot>
                   <slot name="last_row"></slot>
