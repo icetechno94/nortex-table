@@ -55,12 +55,16 @@
             ></table-column>
             <transition name="fade" mode="out-in">
               <tbody v-if="emit_data_up" :key="'emit'">
+                <slot name="loading" v-if="loading"></slot>
                 <slot
+                  v-else-if="data.length === 0"
                   name="empty"
                   v-bind:empty_text="localization.empty || $t('table.empty')"
                 ></slot>
-                <slot name="content"></slot>
-                <slot name="last_row"></slot>
+                <template v-else>
+                  <slot name="content"></slot>
+                  <slot name="last_row"></slot>
+                </template>
               </tbody>
               <tbody v-else-if="loading" :key="'loading'">
                 <tr class="loading-row">
