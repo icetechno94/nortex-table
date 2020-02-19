@@ -55,15 +55,18 @@
             />
             <transition name="fade" mode="out-in">
               <tbody v-if="emit_data_up" :key="'emit'" ref="table_body">
-                <tr class="loading-row" v-if="loading">
+                <tr class="loading-row" v-if="loading" :key="'loading'">
                   <td :colspan="allColumns.length" ref="loading_container">
                     <slot name="loading">
-                      <p class="d-flex justify-content-center">
-                        <span>
-                          {{ localization.loading || $t("table.loading") }}
-                        </span>
-                      </p>
+                      <div class="loading-container">
+                        <div class="nortex-loader">
+                          <span>
+                            {{ localization.loading || $t("table.loading") }}
+                          </span>
+                        </div>
+                      </div>
                     </slot>
+                    <div class="nortex-min-height-onload" v-if="data.length === 0"></div>
                   </td>
                 </tr>
                 <tr class="empty-row" v-else-if="data.length === 0">
@@ -87,13 +90,14 @@
                   <td :colspan="allColumns.length" ref="loading_container">
                     <slot name="loading">
                       <div class="loading-container">
-                        <p class="nortex-loader">
+                        <div class="nortex-loader">
                           <span>
                             {{ localization.loading || $t("table.loading") }}
                           </span>
-                        </p>
+                        </div>
                       </div>
                     </slot>
+                    <div class="nortex-min-height-onload" v-if="data.length === 0"></div>
                   </td>
                 </tr>
                 <tr
@@ -314,10 +318,10 @@ export default {
       if (val) {
         this.$nextTick(() => {
           let loading_container = this.$refs.loading_container,
-                  table_body = this.$refs.table_body;
+            table_body = this.$refs.table_body;
           loading_container.firstChild.firstChild.setAttribute(
-                  "style",
-                  `height:${table_body.clientHeight}px;`
+            "style",
+            `height:${table_body.clientHeight}px;`
           );
         });
       }
@@ -562,6 +566,9 @@ export default {
     td {
       padding: 0;
       border: 0;
+    }
+    .nortex-min-height-onload {
+      height: 200px;
     }
     .loading-container {
       position: relative;
