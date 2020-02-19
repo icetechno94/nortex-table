@@ -1,7 +1,7 @@
 <template>
   <div class="nortex-table">
     <div class="card">
-      <slot name="card-header"></slot>
+      <slot name="card-header" />
       <div class="card-body">
         <div class="d-flex justify-content-md-between align-items-start">
           <div class="d-flex">
@@ -31,7 +31,7 @@
                 :options="filter.options"
                 :title="filter.title"
                 @selected="onFilterSelected"
-              ></table-filter>
+              />
             </div>
             <datetime-filter
               v-if="DateTimeFilter"
@@ -39,7 +39,7 @@
               :time_from="DateTimeFilter.time_from"
               :time_to="DateTimeFilter.time_to"
               @changed="onTimeChanged"
-            ></datetime-filter>
+            />
           </div>
         </div>
         <div class="table-responsive">
@@ -52,7 +52,7 @@
               :columns_row="columns_row"
               :enable_sort="enable_sort"
               @sort-changed="onSortChanged"
-            ></table-column>
+            />
             <transition name="fade" mode="out-in">
               <tbody v-if="emit_data_up" :key="'emit'">
                 <tr class="loading-row" v-if="loading">
@@ -77,13 +77,13 @@
                     </slot>
                   </td>
                 </tr>
-                <template v-else>
-                  <slot name="content"></slot>
-                  <slot name="last_row"></slot>
+                <template>
+                  <slot name="content" />
+                  <slot name="last_row" />
                 </template>
               </tbody>
-              <tbody v-else-if="loading" :key="'loading'">
-                <tr class="loading-row">
+              <tbody v-else :key="'main'">
+                <tr class="loading-row" v-if="loading" :key="'loading'">
                   <td :colspan="allColumns.length">
                     <slot name="loading">
                       <p class="d-flex justify-content-center">
@@ -94,9 +94,11 @@
                     </slot>
                   </td>
                 </tr>
-              </tbody>
-              <tbody v-else-if="data.length === 0" :key="'empty'">
-                <tr class="empty-row">
+                <tr
+                  class="empty-row"
+                  v-else-if="data.length === 0"
+                  :key="'empty'"
+                >
                   <td :colspan="allColumns.length">
                     <slot name="empty">
                       <p class="d-flex justify-content-center">
@@ -107,8 +109,6 @@
                     </slot>
                   </td>
                 </tr>
-              </tbody>
-              <tbody v-else :key="'data'">
                 <tr
                   v-for="(row, index) in data"
                   :key="'row' + index"
@@ -117,29 +117,26 @@
                   <td
                     v-for="(column, index) in allColumns"
                     :key="'row elem' + index"
-                    v-if="row[column.field] !== undefined"
                   >
                     <div v-if="column.field === 'actions'">
                       <div class="btn-group">
                         <a
-                          v-for="action in row.actions"
+                          v-for="action in linkActions(row.actions)"
                           :key="action.title"
                           :class="action.button_class"
                           :href="action.url"
                           v-tooltip="action.title"
-                          v-if="action.action === 'link'"
                         >
-                          <i :class="action.icon_class"></i>
+                          <i :class="action.icon_class" />
                         </a>
                         <button
-                          v-for="action in row.actions"
+                          v-for="action in otherActions(row.actions)"
                           :key="action.title"
                           :class="action.button_class"
                           @click="runAction(action)"
                           v-tooltip="action.title"
-                          v-if="action.action !== 'link'"
                         >
-                          <i :class="action.icon_class"></i>
+                          <i :class="action.icon_class" />
                         </button>
                       </div>
                     </div>
@@ -150,12 +147,10 @@
                     >
                       <slot
                         :name="row[column.field].name"
-                        v-bind:[row[column.field].name]="
-                          row[column.field].items
-                        "
-                      ></slot>
+                        v-bind:[row[column.field].name]="row[column.field].items"
+                      />
                     </div>
-                    <span v-else v-html="row[column.field]"></span>
+                    <span v-else v-html="row[column.field]" />
                   </td>
                 </tr>
               </tbody>
@@ -174,10 +169,10 @@
           :is_per_page_enabled="enable_per_page"
           @page-changed="onPageChange"
           @per-page-changed="onPerPageChange"
-        ></table-pagination>
+        />
       </div>
     </div>
-    <slot name="after_content"></slot>
+    <slot name="after_content" />
   </div>
 </template>
 
@@ -478,6 +473,12 @@ export default {
             that.loading = false;
           });
       }, 500);
+    },
+    linkActions(actions) {
+      return actions.filter(action => action.action === "link");
+    },
+    otherActions(actions) {
+      return actions.filter(action => action.action !== "link");
     }
   }
 };
