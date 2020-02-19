@@ -25,6 +25,8 @@ pipelines:
             - npm run test
       - step:
           name: 'Publish'
+          caches:
+            - node
           deployment: production
           script:
             - npm install

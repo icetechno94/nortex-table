@@ -54,9 +54,9 @@
               @sort-changed="onSortChanged"
             />
             <transition name="fade" mode="out-in">
-              <tbody v-if="emit_data_up" :key="'emit'">
+              <tbody v-if="emit_data_up" :key="'emit'" ref="table_body">
                 <tr class="loading-row" v-if="loading">
-                  <td :colspan="allColumns.length">
+                  <td :colspan="allColumns.length" ref="loading_container">
                     <slot name="loading">
                       <p class="d-flex justify-content-center">
                         <span>
@@ -82,15 +82,17 @@
                   <slot name="last_row" />
                 </template>
               </tbody>
-              <tbody v-else :key="'main'">
+              <tbody v-else :key="'main'" ref="table_body">
                 <tr class="loading-row" v-if="loading" :key="'loading'">
-                  <td :colspan="allColumns.length">
+                  <td :colspan="allColumns.length" ref="loading_container">
                     <slot name="loading">
-                      <p class="d-flex justify-content-center">
-                        <span>
-                          {{ localization.loading || $t("table.loading") }}
-                        </span>
-                      </p>
+                      <div class="loading-container">
+                        <p class="nortex-loader">
+                          <span>
+                            {{ localization.loading || $t("table.loading") }}
+                          </span>
+                        </p>
+                      </div>
                     </slot>
                   </td>
                 </tr>
@@ -160,7 +162,7 @@
         <table-pagination
           v-if="enable_pagination"
           :current_per_page="perPage"
-          :total_records="totalRecords"
+          :total_records="1000"
           :current_page="page"
           :labels="paginationLabels"
           :per_page_labels="perPageLabels"
@@ -307,6 +309,18 @@ export default {
     },
     perPage(val) {
       this.updateParams({ perPage: val });
+    },
+    loading(val) {
+      if (val) {
+        this.$nextTick(() => {
+          let loading_container = this.$refs.loading_container,
+                  table_body = this.$refs.table_body;
+          loading_container.firstChild.firstChild.setAttribute(
+                  "style",
+                  `height:${table_body.clientHeight}px;`
+          );
+        });
+      }
     }
   },
   mounted() {
@@ -542,6 +556,31 @@ export default {
   .fade-enter,
   .fade-leave-to {
     opacity: 0;
+  }
+  .loading-row {
+    height: 0;
+    td {
+      padding: 0;
+      border: 0;
+    }
+    .loading-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .nortex-loader {
+        position: absolute;
+        background-color: rgba(239, 241, 253, 0.64);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        span {
+          padding: 20px;
+          border-radius: 8px;
+          margin: auto;
+          background-color: white;
+        }
+      }
+    }
   }
 }
 </style>
