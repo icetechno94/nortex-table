@@ -162,7 +162,7 @@
         <table-pagination
           v-if="enable_pagination"
           :current_per_page="perPage"
-          :total_records="1000"
+          :total_records="totalRecords"
           :current_page="page"
           :labels="paginationLabels"
           :per_page_labels="perPageLabels"
