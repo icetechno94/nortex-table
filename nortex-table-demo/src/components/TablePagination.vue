@@ -13,63 +13,74 @@
         :searchable="false"
       />
     </label>
-    <ul class="pagination nortex-table-pagination-pages">
-      <li class="page-item prev" :class="{ disabled: prevIsDisabled }">
-        <a
-          href="#"
-          class="page-link"
-          @click.prevent="previousPage"
-          v-tooltip="labels.prev"
-        >
-          {{ arrowButtons.prev }}
-        </a>
-      </li>
-      <li class="page-item first" v-show="!firstIsDisabled">
-        <a href="#" class="page-link" @click.prevent="firstPage">
-          {{ 1 }}
-        </a>
-      </li>
-      <li class="page-item disabled" v-show="afterFirstPeriodIsShown">
-        <a href="#" class="page-link">...</a>
-      </li>
-      <li class="page-item" v-for="page in prevPages" :key="page">
-        <a href="#" class="page-link" @click.prevent="changePage(page)">
-          {{ page }}
-        </a>
-      </li>
-      <li class="page-item active">
-        <a href="#" class="page-link" @click.prevent="">
-          {{ currentPage }}
-        </a>
-      </li>
-      <li class="page-item" v-for="page in nextPages" :key="page">
-        <a href="#" class="page-link" @click.prevent="changePage(page)">
-          {{ page }}
-        </a>
-      </li>
-      <li class="page-item disabled" v-show="beforeLastPeriodIsShown">
-        <a href="#" class="page-link">...</a>
-      </li>
-      <li class="page-item last" v-show="!lastIsDisabled">
-        <a
-          class="page-link"
-          href="#"
-          @click.prevent="lastPage"
-        >
-          {{ pagesCount }}
-        </a>
-      </li>
-      <li class="page-item next" :class="{ disabled: nextIsDisabled }">
-        <a
-          class="page-link"
-          href="#"
-          @click.prevent="nextPage"
-          v-tooltip="labels.next"
-        >
-          {{ arrowButtons.next }}
-        </a>
-      </li>
-    </ul>
+    <div class="pagination nortex-table-pagination-pages">
+      <button
+        class="nortex-table-pagination-item prev"
+        :disabled="prevIsDisabled"
+        @click.prevent="previousPage"
+        v-tooltip="labels.prev"
+      >
+        {{ arrowButtons.prev }}
+      </button>
+      <button
+        class="nortex-table-pagination-item first"
+        v-show="!firstIsDisabled"
+        @click="firstPage"
+      >
+        1
+      </button>
+      <button
+        class="nortex-table-pagination-item prev-period"
+        :disabled="true"
+        v-show="afterFirstPeriodIsShown"
+      >
+        ...
+      </button>
+      <button
+        class="nortex-table-pagination-item prev-pages"
+        v-for="page in prevPages"
+        :key="page"
+        @click="changePage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="nortex-table-pagination-item active"
+        @click.prevent=""
+      >
+        {{ currentPage }}
+      </button>
+      <button
+        class="nortex-table-pagination-item next-pages"
+        v-for="page in nextPages"
+        :key="page"
+        @click="changePage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="nortex-table-pagination-item next-period"
+        :disabled="true"
+        v-show="beforeLastPeriodIsShown"
+      >
+        ...
+      </button>
+      <button
+        class="nortex-table-pagination-item last"
+        v-show="!lastIsDisabled"
+        @click.prevent="lastPage"
+      >
+        {{ pagesCount }}
+      </button>
+      <button
+        class="nortex-table-pagination-item next"
+        :disabled="nextIsDisabled"
+        @click.prevent="nextPage"
+        v-tooltip="labels.next"
+      >
+        {{ arrowButtons.next }}
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -273,3 +284,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.nortex-table-pagination {
+  .nortex-table-pagination-item {
+    outline: unset;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    border: 1px solid #dee2e6;
+    &:not(:disabled) {
+      color: #007bff;
+    }
+    &.active {
+      color: white;
+      background-color: #007bff;
+    }
+  }
+}
+</style>
