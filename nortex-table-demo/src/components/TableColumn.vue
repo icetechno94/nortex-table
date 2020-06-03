@@ -7,7 +7,7 @@
         :rowspan="column.rowspan"
         :colspan="column.colspan"
         :class="column.class"
-        @click="changeSort(column.field)"
+        @click="changeSort(column)"
       >
         <span>
           {{ column.label }}
@@ -15,7 +15,7 @@
             class="icon-question ml-1"
             v-if="column.title"
             v-tooltip="column.title"
-          ></i>
+          />
         </span>
       </th>
     </tr>
@@ -32,7 +32,7 @@
             class="icon-question ml-1"
             v-if="column.title"
             v-tooltip="column.title"
-          ></i>
+          />
         </span>
       </th>
     </tr>
