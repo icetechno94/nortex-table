@@ -24,7 +24,7 @@
         v-for="column in childrenColumns"
         :key="column.field"
         :class="sortingClass(column)"
-        @click="changeSort(column.field)"
+        @click="changeSort(column)"
       >
         <span>
           {{ column.label }}
@@ -134,8 +134,8 @@ export default {
         desc: column.sortable && this.sortBy === column.field && this.isDesc
       };
     },
-    changeSort(field) {
-      if (this.enable_sort && field !== "actions") {
+    changeSort({ field, sortable }) {
+      if (this.enable_sort && field !== "actions" && sortable) {
         if (field === this.sortBy) {
           this.revertSortType();
         } else {
